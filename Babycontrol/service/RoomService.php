@@ -358,7 +358,7 @@ class RoomService
      */
     public static function wsRemoveRoomWs($wsObj){
         $devRoomId = '';
-
+        $id = -1;
         foreach(self::$wsList as $id => $info){
 
             if( $info['ws_obj'] == $wsObj){
@@ -381,7 +381,7 @@ class RoomService
      */
     public static function wsGetRoomId($wsObj){
         $devRoomId = '';
-
+        $id = -1;
         foreach(self::$wsList as $id => $info){
 
             if( $info['ws_obj'] == $wsObj){
@@ -403,7 +403,7 @@ class RoomService
      */
     public static function wsGetRoomWs($devRoomId){
         $wsObj = '';
-
+        $id = -1;
         foreach(self::$wsList as $id => $info){
 
             if( $info['dev_room_id'] == $devRoomId){

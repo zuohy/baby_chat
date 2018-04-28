@@ -103,9 +103,10 @@ $httpServer->onMessage = function($con_id, $data){
             }
 
             //根据 房间id，获取设备appid用于建立链接
-
+            $retData = isset($retObj->data) ? $retObj->data : '';
+            $conUrl = isset($retData->dev_con_url) ? $retData->dev_con_url : '';
             //获取设备服务器ws 地址
-            $devAddress = CmdService::getWsUrl('','',''); //暂时只有一台机器 appid 固定
+            $devAddress = CmdService::getWsUrl('','',$conUrl); //暂时只有一台机器 appid 固定
             LogService::writeLog('info', 'ws', 'device address=' . $devAddress);
 
             //保存房间信息 和成员信息

@@ -49,15 +49,9 @@ class CmdService
     //web服务器api 地址
     private static $webServer = 'http://test.hqscs.com/wawa_web/index.php/phone/apiwawa/index';
     //设备服务器 地址
-    private static $devServer = 'http://api.open.wowgotcha.com/openapi/v1/websocket_url/?appid=wow04d608ed68hk73092za1&binding_id=3&room_id=3';
-/*
-    public function __construct() { }
+    //'http://api.open.wowgotcha.com/openapi/v1/websocket_url/?appid=wow04d608ed68hk73092za1&binding_id=3&room_id=3';
+    private static $devServer = 'http://api.open.wowgotcha.com/openapi/v1/websocket_url/?appid=wow04d608ed68hk73092za1';
 
-    public function __destruct()
-    {
-        $this->disconnect();
-    }
-*/
     private static function initCmd(){
         self::$_cmdLayout['id'] = '';
         self::$_cmdLayout['method'] = '';
@@ -110,12 +104,13 @@ class CmdService
      */
     public static function getWsUrl($host, $port, $path, $origin = false)
     {
+        self::$_host = $host;   //未使用
+        self::$_port = $port;    //未使用
+        self::$_path = $path;     //web 认证后返回的url 路径
+        self::$_origin = $origin;  //未使用
+        $conUrl = self::$devServer . self::$_path;
 
-        self::$_port = $port;
-        self::$_path = $path;
-        self::$_origin = $origin;
-
-        $jsonRet = HttpService::get(self::$devServer, [], 30, []);
+        $jsonRet = HttpService::get($conUrl, [], 30, []);
         $stRet = json_decode($jsonRet);
 
         if($stRet->errcode != 0){
