@@ -161,20 +161,21 @@ class CmdService
 
     /**
      * userAuth  认证用户有效性
-     * @param string $roomId
+     * @param string $roomId    //用户房间ID
      * @param string $userId
      * @param string $price
+     * @param string $devRoomId  //房间设备ID
      * @param string $key
      * @return bool|string
      */
-    public static function userAuth($roomId, $userId, $price, $key='')
+    public static function userAuth($roomId, $userId, $price, $devRoomId, $key='')
     {
         $webCmd = array(
             'type' => 'dev_user_auth',
             'user_id' => $userId,
             'room_id' => $roomId,
             'price' => $price,
-
+            'dev_room_id' => $devRoomId,
         );
 
         $sendData = array(
@@ -192,10 +193,11 @@ class CmdService
      * @param string $userId
      * @param string $status   //投币状态
      * @param string $price   //投币价格
+     * @param string $devRoomId   //房间设备ID
      * @param string $key
      * @return bool|string
      */
-    public static function notifyCoins($roomId, $userId, $status, $price)
+    public static function notifyCoins($roomId, $userId, $status, $price, $devRoomId)
     {
         $webCmd = array(
             'type' => 'dev_notify_coins',
@@ -203,6 +205,7 @@ class CmdService
             'user_id' => $userId,
             'room_id' => $roomId,
             'price' => $price,
+            'dev_room_id' => $devRoomId,
 
         );
 

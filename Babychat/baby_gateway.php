@@ -15,10 +15,24 @@ use \Workerman\Worker;
 use \GatewayWorker\Gateway;
 use \Workerman\Autoloader;
 
+
+// 证书
+$context = array(
+    'ssl' => array(
+        'local_cert'  => '/usr/local/lnmp/nginx/conf/cert.pem', // 也可以是crt文件
+        'local_pk'    => '/usr/local/lnmp/nginx/conf/cert.key',
+        'verify_peer' => false,
+    )
+);
+
 // gateway 进程
-$gateway = new Gateway("Websocket://0.0.0.0:7272");
+$gateway = new Gateway("Websocket://0.0.0.0:7272", $context);
 // 设置名称，方便status时查看
 $gateway->name = 'ChatGateway';
+
+// 开启SSL，websocket+SSL 即wss
+//$gateway->transport = 'ssl';
+
 // 设置进程数，gateway进程数建议与cpu核数相同
 $gateway->count = 4;
 // 分布式部署时请设置成内网ip（非127.0.0.1）
